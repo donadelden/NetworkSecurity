@@ -42,9 +42,9 @@ In the second bash window:
 $ arpspoof -t <bob_ip> <alice_ip>
 ```
 
-6. Now you may verify in Alice's `sh` instance that `ip neighbor` shows that Bob's IP is now associated to Eve's MAC address, meaning that the ARP spoofing was successful. In any case, reloading the page still shows the normal website, since Eve is not blocking any packets yet.
-7. Now run the `add_iptables_rule.sh` script in the `olicyber` folder. This will add a rule to `iptables` to forward every packet with destination port 80 to the proxy
-8. You may verify that Alice's browser will give an error when reloading the page. This is because Eve is not blocking the packets in pitables and forwarding them to the proxy. Since the proxy is not active yet, the packets are simply dropped.
+6. Now you may verify in Alice's `sh` instance that `ip neigh` shows that Bob's IP is now associated to Eve's MAC address, meaning that the ARP spoofing was successful. In any case, reloading the page still shows the normal website, since Eve is not blocking any packets yet.
+7. Now run the `add_iptables_rule.sh` script in the `arp0` folder in the Eve container. This will add a rule to `iptables` to forward every packet with destination port 80 to the proxy. You may also need to add execution permission to the file with `chdmox +x <file-name>`. 
+8. You may verify that Alice's browser will give an error when reloading the page. This is because Eve is not blocking the packets in iptables and forwarding them to the proxy. Since the proxy is not active yet, the packets are simply dropped.
 9. Now we activate the proxy in passive mode:
 
 ```
@@ -54,8 +54,8 @@ $ mitmproxy -m transparent
 10. Reload the browser page: the honest page will show again, but mitmproxy will show that the request passed through Eve
 11. Now shut down the proxy and activate it again, this time with the script that modifies the contents of the page:
 ```
-$ mitmproxy -m transparent -s /olicyber/proxy.py
+$ mitmproxy -m transparent -s /arp0/proxy.py
 ```
 12. Reload the browser page: the attacker has changed the contents of the website.
-13. To shut down everything use the `del_iptables_rul.sh` script in the `olicyber` folder to remove the iptables rule and turn off the two arpspoof instances
+13. To shut down everything use the `del_iptables_rul.sh` script in the `arp0` folder to remove the iptables rule and turn off the two arpspoof instances (or just stop/kill the containers).
 
