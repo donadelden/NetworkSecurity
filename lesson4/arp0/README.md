@@ -14,7 +14,7 @@ There are 3 containers, Bob, Alice and Eve.
 
 - **Bob**: is hosting an http server, serving the files contained in `bob_files`
 - **Alice**: is a container with Firefox running on it. To connect to firefox from the host, visit `http://localhost:5800`.
-- **Eve**: is a container meant to be used via bash. To run commands, just run `docker exec -it mitm_eve /bin/bash`. This container has the `eve_files` folder mounted on the container as `/olicyber` (TODO: change this folder's name)
+- **Eve**: is a container meant to be used via bash. To run commands, just run `docker exec -it mitm_eve /bin/bash`. This container has the `eve_files` folder mounted on the container as `/arp`
 
 The three containers are connected together with a docker bridge network called `mitm`
 
